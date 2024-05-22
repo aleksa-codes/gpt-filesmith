@@ -15,11 +15,11 @@ const getContentType = (extension: string): string => {
 
 function getMessagePrompt(extension: string | undefined, path: string | undefined) {
   if (!extension || extension === 'html') {
-    return `Create a HTML document with content that matches following URL path: ${path}. The website design and colors should match the path and be inspired by Dribbble. Use Tailwind CSS. Minimum 100vh, responsive design, navigation, footer and multiple sections. For images use online sources that are topic-specific. No comments or extra tags.`;
+    return `Generate HTML code with content that matches following URL path: ${path}. The website design and colors should match the path. Use Tailwind CSS. Minimum 100vh, responsive design, navigation, footer and multiple sections. For images use online sources that are topic-specific. No comments or extra tags.`;
   } else if (extension === 'json') {
-    return `Create a JSON structure with content that matches following URL path: ${path}. The structure should only contain relevant keys and values for the topic.`;
+    return `Generate JSON code with content that matches following URL path: ${path}. The structure should only contain relevant keys and values for the topic.`;
   } else {
-    return `Create a file of type ${extension} with content that matches following URL path: ${path}.`;
+    return `Generate ${extension.toUpperCase()} code with content that matches following URL path: ${path}. The code should be valid and follow best practices for the language.`;
   }
 }
 
@@ -27,7 +27,11 @@ const generateCompletion = async (prompt: string) =>
   openai.chat.completions.create({
     model: 'gpt-3.5-turbo',
     messages: [
-      { role: 'system', content: 'You are an expert AI developer that creates files.' },
+      {
+        role: 'system',
+        content:
+          'You are an expert AI developer that creates files. Do not say anything before or after the file content.'
+      },
       { role: 'user', content: prompt }
     ],
     temperature: 1.1,
@@ -55,6 +59,9 @@ export const GET: APIRoute = async ({ params }) => {
   const { choices } = (await generateCompletion(prompt)) || {};
 
   let content = choices?.[0]?.message?.content || '';
+
+  // remove ```html and other possible code blocks from the response
+  content = content.replace(/```(html|css|js|json)?/g, '');
 
   // Handle HTML-specific logic
   if (extension === 'html' || extension === '') {

@@ -25,7 +25,7 @@ function getMessagePrompt(extension: string | undefined, path: string | undefine
 
 const generateCompletion = async (prompt: string) =>
   openai.chat.completions.create({
-    model: 'gpt-3.5-turbo',
+    model: 'gpt-4o-mini',
     messages: [
       {
         role: 'system',

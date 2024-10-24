@@ -1,14 +1,12 @@
 import type { APIRoute } from 'astro';
 import OpenAI from 'openai';
 
-const openai = new OpenAI({ apiKey: import.meta.env.OPENAI_API_KEY });
-
 const getContentType = (extension: string): string => {
   const types: { [key: string]: string } = {
     html: 'text/html',
     css: 'text/css',
     js: 'application/javascript',
-    json: 'application/json'
+    json: 'application/json',
   };
   return types[extension] || (extension ? 'text/plain' : 'text/html');
 };
@@ -23,72 +21,106 @@ function getMessagePrompt(extension: string | undefined, path: string | undefine
   }
 }
 
-const generateCompletion = async (prompt: string) =>
-  openai.chat.completions.create({
-    model: 'gpt-4o-mini',
+const generateCompletion = async (prompt: string, apiKey: string | null) => {
+  if (!apiKey) {
+    throw new Error('No API key provided');
+  }
+
+  const openai = new OpenAI({ apiKey });
+
+  return openai.chat.completions.create({
+    model: 'gpt-4',
     messages: [
       {
         role: 'system',
         content:
-          'You are an expert AI developer that creates files. Do not say anything before or after the file content.'
+          'You are an expert AI developer that creates files. Do not say anything before or after the file content.',
       },
-      { role: 'user', content: prompt }
+      { role: 'user', content: prompt },
     ],
     temperature: 1.1,
-    stop: ['</html>']
+    stop: ['</html>'],
   });
+};
 
 const validatePath = (path: string) => {
   if (path.length > 100) throw new Error('Path too long');
 };
 
-export const GET: APIRoute = async ({ params }) => {
-  const { path = '' } = params;
-  validatePath(path);
+// Helper function to get cookie value
+const getCookie = (cookieStr: string | null, name: string): string | null => {
+  if (!cookieStr) return null;
+  const value = `; ${cookieStr}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+  return null;
+};
 
-  // Get extension, if any
-  const extension = path.includes('.') ? path.split('.').slice(-1)[0] : '';
+export const GET: APIRoute = async ({ params, request }) => {
+  try {
+    const { path = '' } = params;
+    validatePath(path);
 
-  // Get content type
-  const contentType = getContentType(extension);
+    // Get API key from cookie
+    const apiKey = getCookie(request.headers.get('cookie'), 'openai_api_key');
 
-  // Generate the prompt
-  const prompt = getMessagePrompt(extension, path);
+    if (!apiKey) {
+      return new Response(JSON.stringify({ error: 'API key is required' }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
 
-  // Generate the completion
-  const { choices } = (await generateCompletion(prompt)) || {};
+    const extension = path.includes('.') ? path.split('.').slice(-1)[0] : '';
+    const contentType = getContentType(extension);
+    const prompt = getMessagePrompt(extension, path);
+    const { choices } = await generateCompletion(prompt, apiKey);
 
-  let content = choices?.[0]?.message?.content || '';
+    let content = choices?.[0]?.message?.content || '';
+    content = content.replace(/```(html|css|js|json)?/g, '');
 
-  // remove ```html and other possible code blocks from the response
-  content = content.replace(/```(html|css|js|json)?/g, '');
-
-  // Handle HTML-specific logic
-  if (extension === 'html' || extension === '') {
-    content = `
-    <body style="display: flex; flex-direction: column; height: 100vh; justify-content: space-between; background: #f2f2f2; font-family: Arial, sans-serif; margin: 0; padding: 0;">
-      <iframe style="flex: 1; width: 100%; border: none; overflow-y: auto;" src="data:text/html;charset=utf-8,${encodeURIComponent(
-        content!
-      )}"></iframe>
-      <div style="text-align: center; background: #f9f9f9; padding: 12px;">
-        <p style="font-size: 18px; font-weight: 500; color: #333; margin: 0;">Like what you see?</p>
-        <div style="display: inline-flex; gap: 8px;">
-          <a href="/" 
-             style="margin-top: 8px; background: #ccc; color: #333; font-weight: 600; padding: 8px 16px; border-radius: 12px; text-decoration: none; transition: background-color 0.3s ease;"
-             onmouseover="this.style.backgroundColor='#ddd'"
-             onmouseout="this.style.backgroundColor='#ccc'">
-            Go Home
-          </a>
-          <a href="data:text/html;charset=utf-8,${encodeURIComponent(content!)}" download="${path?.split('.')[0]}.html" 
-             style="margin-top: 8px; background: #6D28D9; color: #fff; font-weight: 600; padding: 8px 16px; border-radius: 12px; text-decoration: none; transition: background-color 0.3s ease;"
-             onmouseover="this.style.backgroundColor='#7C3AED'"
-             onmouseout="this.style.backgroundColor='#6D28D9'">
-            Download
-          </a>
+    if (extension === 'html' || extension === '') {
+      content = `
+      <body style="display: flex; flex-direction: column; height: 100vh; justify-content: space-between; background: #f2f2f2; font-family: Arial, sans-serif; margin: 0; padding: 0;">
+        <iframe style="flex: 1; width: 100%; border: none; overflow-y: auto;" src="data:text/html;charset=utf-8,${encodeURIComponent(
+          content,
+        )}"></iframe>
+        <div style="text-align: center; background: #f9f9f9; padding: 12px;">
+          <p style="font-size: 18px; font-weight: 500; color: #333; margin: 0;">Like what you see?</p>
+          <div style="display: inline-flex; gap: 8px;">
+            <a href="/" 
+               style="margin-top: 8px; background: #ccc; color: #333; font-weight: 600; padding: 8px 16px; border-radius: 12px; text-decoration: none; transition: background-color 0.3s ease;"
+               onmouseover="this.style.backgroundColor='#ddd'"
+               onmouseout="this.style.backgroundColor='#ccc'">
+              Go Home
+            </a>
+            <a href="data:text/html;charset=utf-8,${encodeURIComponent(content)}" download="${
+              path?.split('.')[0]
+            }.html" 
+               style="margin-top: 8px; background: #6D28D9; color: #fff; font-weight: 600; padding: 8px 16px; border-radius: 12px; text-decoration: none; transition: background-color 0.3s ease;"
+               onmouseover="this.style.backgroundColor='#7C3AED'"
+               onmouseout="this.style.backgroundColor='#6D28D9'">
+              Download
+            </a>
+          </div>
         </div>
-      </div>
-    </body>`;
-  }
+      </body>`;
+    }
 
-  return new Response(content, { status: 200, headers: { 'Content-Type': contentType } });
+    return new Response(content, {
+      status: 200,
+      headers: { 'Content-Type': contentType },
+    });
+  } catch (error) {
+    console.error('Error:', error);
+    return new Response(
+      JSON.stringify({
+        error: error instanceof Error ? error.message : 'An unknown error occurred',
+      }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      },
+    );
+  }
 };

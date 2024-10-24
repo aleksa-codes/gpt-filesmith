@@ -152,7 +152,8 @@ if (Astro.request.method === 'POST') {
       const notificationEl = document.getElementById('notification');
 
       // Save API Key
-      saveApiKeyBtn?.addEventListener('click', async () => {
+      saveApiKeyBtn?.addEventListener('click', async (e) => {
+        e.preventDefault();
         const apiKey = (apiKeyInput as HTMLInputElement)?.value;
         if (apiKey) {
           try {

@@ -81,25 +81,37 @@ export const GET: APIRoute = async ({ params, request }) => {
 
     if (extension === 'html' || extension === '') {
       content = `
-      <body style="display: flex; flex-direction: column; height: 100vh; justify-content: space-between; background: #f2f2f2; font-family: Arial, sans-serif; margin: 0; padding: 0;">
-        <iframe style="flex: 1; width: 100%; border: none; overflow-y: auto;" src="data:text/html;charset=utf-8,${encodeURIComponent(
-          content,
-        )}"></iframe>
-        <div style="text-align: center; background: #f9f9f9; padding: 12px;">
-          <p style="font-size: 18px; font-weight: 500; color: #333; margin: 0;">Like what you see?</p>
-          <div style="display: inline-flex; gap: 8px;">
+      <body style="display: flex; flex-direction: column; height: 100vh; justify-content: space-between; background: #f3f4f6; font-family: Arial, sans-serif; margin: 0; padding: 0;">
+        <iframe style="flex: 1; width: 100%; border: none; overflow-y: auto;" src="data:text/html;charset=utf-8,${encodeURIComponent(content)}"></iframe>
+        
+        <!-- Footer -->
+        <div style="text-align: center; background: #f9fafb; padding: 16px;">
+          <p style="font-size: 18px; font-weight: 500; color: #4b5563; margin-bottom: 12px; margin-top: 0;">Like what you see?</p>
+          
+          <!-- Button Container -->
+          <div style="display: inline-flex; gap: 12px;">
+            <!-- Home Button -->
             <a href="/" 
-               style="margin-top: 8px; background: #ccc; color: #333; font-weight: 600; padding: 8px 16px; border-radius: 12px; text-decoration: none; transition: background-color 0.3s ease;"
-               onmouseover="this.style.backgroundColor='#ddd'"
-               onmouseout="this.style.backgroundColor='#ccc'">
+               style="display: flex; align-items: center; gap: 6px; background: #e5e7eb; color: #374151; font-weight: 600; padding: 10px 20px; border-radius: 8px; text-decoration: none; transition: background-color 0.3s ease;"
+               onmouseover="this.style.backgroundColor='#d1d5db'"
+               onmouseout="this.style.backgroundColor='#e5e7eb'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/>
+                  <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                </g>
+              </svg>
               Go Home
             </a>
-            <a href="data:text/html;charset=utf-8,${encodeURIComponent(content)}" download="${
-              path?.split('.')[0]
-            }.html" 
-               style="margin-top: 8px; background: #6D28D9; color: #fff; font-weight: 600; padding: 8px 16px; border-radius: 12px; text-decoration: none; transition: background-color 0.3s ease;"
+      
+            <!-- Download Button -->
+            <a href="data:text/html;charset=utf-8,${encodeURIComponent(content)}" download="${path?.split('.')[0]}.html" 
+               style="display: flex; align-items: center; gap: 6px; background: #6D28D9; color: #ffffff; font-weight: 600; padding: 10px 20px; border-radius: 8px; text-decoration: none; transition: background-color 0.3s ease;"
                onmouseover="this.style.backgroundColor='#7C3AED'"
                onmouseout="this.style.backgroundColor='#6D28D9'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4m4-5l5 5l5-5m-5 5V3"/>
+              </svg>
               Download
             </a>
           </div>

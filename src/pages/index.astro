@@ -1,13 +1,13 @@
 ---
 import '../styles/global.css';
+import { Icon } from 'astro-icon/components';
+
 const title = 'GPT FileSmith';
 
 if (Astro.request.method === 'POST') {
   try {
     const data = await Astro.request.formData();
     let path = data.get('path') as string;
-    const apiKey = data.get('apiKey') as string;
-    console.log('API key:', apiKey);
 
     if (!path.startsWith('/')) {
       path = `/${path}`;
@@ -26,14 +26,14 @@ if (Astro.request.method === 'POST') {
     <meta name='viewport' content='width=device-width, initial-scale=1.0' />
     <meta
       name='description'
-      content='GPT FileSmith is a dynamic file generator powered by GPT-4o. Enter any URL or file path to instantly create HTML, CSS, JavaScript, JSON files, and more. Default to HTML if no file type is specified. Built with Astro, Tailwind CSS, and deployed on Cloudflare Pages for fast performance and seamless file generation.'
+      content='GPT FileSmith is a dynamic file generator powered by GPT-4. Enter any URL or file path to instantly create HTML, CSS, JavaScript, JSON files, and more. Default to HTML if no file type is specified. Built with Astro, Tailwind CSS, and deployed on Cloudflare Pages for fast performance and seamless file generation.'
     />
     <link rel='icon' type='image/x-icon' href='/favicon.ico' />
     <link rel='icon' type='image/png' sizes='16x16' href='/favicon-16x16.png' />
     <link rel='icon' type='image/png' sizes='32x32' href='/favicon-32x32.png' />
     <title>{title}</title>
   </head>
-  <body class='flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-600 to-indigo-800'>
+  <body class='flex h-screen items-center justify-center bg-gradient-to-br from-purple-600 to-indigo-800 p-4'>
     <a
       href='https://github.com/aleksa-codes/gpt-filesmith'
       target='_blank'
@@ -55,106 +55,147 @@ if (Astro.request.method === 'POST') {
           class='octo-body'></path></svg
       ></a
     >
-    <div class='mx-auto max-w-2xl space-y-6'>
-      <!-- Notification Banner -->
-      <div
-        id='notification'
-        class='fixed left-1/2 top-4 z-50 hidden min-w-[300px] -translate-x-1/2 transform rounded-lg p-4 text-center text-white'
-      >
+    <!-- Notification Toast -->
+    <div
+      id='notification'
+      class='fixed left-1/2 top-4 z-50 hidden -translate-x-1/2 transform rounded-lg p-4 text-center text-white shadow-lg duration-200'
+    >
+    </div>
+
+    <!-- API Key Modal -->
+    <div id='apiKeyModal' class='fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm'>
+      <div class='mx-4 w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl'>
+        <div class='mb-4 flex items-center justify-between'>
+          <h2 class='text-xl font-bold text-gray-800'>Set API Key</h2>
+          <button id='closeModal' class='text-gray-500 hover:text-gray-700'>
+            <Icon name='lucide:x' class='h-6 w-6' />
+          </button>
+        </div>
+
+        <div class='space-y-4'>
+          <div class='space-y-2'>
+            <label class='block text-sm font-medium text-gray-700'> OpenAI API Key </label>
+            <input
+              name='apiKey'
+              type='password'
+              id='apiKey'
+              class='w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm transition duration-200 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50'
+              placeholder='sk-...'
+              required
+            />
+          </div>
+
+          <div class='rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm text-blue-800'>
+            <p class='flex items-start gap-2'>
+              <Icon name='lucide:shield' class='mt-0.5 h-5 w-5 flex-shrink-0' />
+              Your API key is securely stored in the browser's local storage and is only used for OpenAI API requests.
+            </p>
+          </div>
+
+          <button
+            id='saveApiKey'
+            class='w-full rounded-lg bg-purple-600 px-4 py-2 font-medium text-white shadow-lg transition duration-200 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2'
+          >
+            Save API Key
+          </button>
+        </div>
       </div>
+    </div>
 
-      <div class='rounded-lg bg-white/95 p-8 shadow-xl backdrop-blur'>
-        <h1 class='mb-8 text-center text-3xl font-bold text-purple-800'>
-          {title}
-        </h1>
+    <main class='w-full max-w-2xl'>
+      <div class='w-full space-y-6 rounded-2xl bg-white/95 p-8 shadow-2xl backdrop-blur'>
+        <div class='text-center'>
+          <h1 class='bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-4xl font-bold text-transparent'>
+            {title}
+          </h1>
+          <p class='mt-2 text-gray-600'>Generate files dynamically with AI</p>
+        </div>
 
-        <!-- Path Form -->
-        <form method='POST' class='space-y-4'>
-          <!-- API Key Section -->
-          <div id='apiKeySection' class='mb-8'>
-            <div id='apiKeyForm' class='space-y-4'>
-              <div class='space-y-2'>
-                <label class='block text-sm font-medium text-gray-700'> OpenAI API Key </label>
-                <input
-                  name='apiKey'
-                  type='password'
-                  id='apiKey'
-                  class='w-full rounded-lg border px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500'
-                  placeholder='sk-...'
-                  required
-                />
-              </div>
-              <div class='rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm text-blue-800'>
-                Your API key is securely stored in the browser's local storage (cookies) and is only utilized when
-                making requests to OpenAI via their official SDK. Rest assured that your key is not transmitted to any
-                external server except when interacting with OpenAI's services.
-              </div>
-              <button
-                id='saveApiKey'
-                class='w-full rounded-lg bg-purple-600 px-4 py-2 text-white transition duration-200 hover:bg-purple-700'
-              >
-                Save API Key
-              </button>
+        <!-- API Key Status -->
+        <div id='apiKeyStatus' class='hidden'>
+          <div class='flex items-center justify-between rounded-lg bg-gray-50 p-4 shadow-sm'>
+            <div class='flex items-center gap-2'>
+              <Icon name='lucide:check-circle' class='h-5 w-5 text-green-600' />
+              <span class='text-sm text-gray-600'>
+                API Key is set <span class='text-red-600'>(Don't forget to remove it later)</span>
+              </span>
             </div>
-
-            <div id='apiKeyStatus' class='hidden items-center justify-between rounded-lg bg-gray-50 p-3'>
-              <div class='flex items-center gap-2'>
-                <svg class='h-5 w-5 text-green-600' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                  <path
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                    stroke-width='2'
-                    d='M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z'
-                  ></path>
-                </svg>
-                <div class='text-sm text-gray-600'>
-                  API Key is set <span class='text-red-600'>(Don't forget to remove it later)</span>
-                </div>
-              </div>
-              <button id='removeApiKey' class='flex items-center gap-1 text-sm text-red-600 hover:text-red-700'>
-                <svg class='h-4 w-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                  <path
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                    stroke-width='2'
-                    d='M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16'
-                  ></path>
-                </svg>
+            <div class='flex gap-2'>
+              <button
+                id='editApiKey'
+                class='flex items-center gap-1 rounded-lg px-2 py-1 text-sm text-gray-600 hover:bg-gray-100'
+              >
+                <Icon name='lucide:edit' class='h-4 w-4' />
+                Edit
+              </button>
+              <button
+                id='removeApiKey'
+                class='flex items-center gap-1 rounded-lg px-2 py-1 text-sm text-red-600 hover:bg-red-50'
+              >
+                <Icon name='lucide:trash-2' class='h-4 w-4' />
                 Remove
               </button>
             </div>
           </div>
+        </div>
+
+        <!-- Set API Key Button -->
+        <button
+          id='showApiKeyModalBtn'
+          class='w-full rounded-lg border border-purple-200 bg-purple-50 px-4 py-3 text-purple-700 shadow-sm transition duration-200 hover:bg-purple-100'
+        >
+          <div class='flex items-center justify-center gap-2'>
+            <Icon name='lucide:key' class='h-5 w-5' />
+            <span>Set API Key</span>
+          </div>
+        </button>
+
+        <!-- Path Form -->
+        <form method='POST' class='space-y-6'>
           <div class='space-y-2'>
             <label for='path' class='block text-sm font-medium text-gray-700'> Enter Path </label>
-            <input
-              type='text'
-              name='path'
-              id='path'
-              class='w-full rounded-lg border px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500'
-              placeholder='/pokemon/charizard.html'
-              required
-            />
+            <div class='relative'>
+              <Icon name='lucide:folder' class='absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400' />
+              <input
+                type='text'
+                name='path'
+                id='path'
+                class='w-full rounded-lg border border-gray-300 px-4 py-2 pl-10 shadow-sm transition duration-200 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50'
+                placeholder='/pokemon/charizard.html'
+                required
+              />
+            </div>
           </div>
+
           <div class='rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm text-blue-800'>
-            You can also enter a path directly in the browser's address bar or search box. For example, type a path with
-            an extension like <code>/example.html</code> after the website's URL, and GPT will generate content based on
-            the file type. Supported types include HTML, CSS, JavaScript, JSON, and more.
+            <p class='flex items-start gap-2'>
+              <Icon name='lucide:info' class='mt-0.5 h-5 w-5 flex-shrink-0' />
+              <span>
+                To generate a file you can also just add a path with an extension to this URL. For example, try adding <code
+                  class='rounded bg-blue-100 px-1.5 py-0.5'>/example.html</code
+                > at the end of the address in your browser’s URL bar. Supported file types include HTML, CSS, JavaScript,
+                JSON, and more.
+              </span>
+            </p>
           </div>
+
           <button
             type='submit'
             id='generateBtn'
-            class='w-full rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2 text-white transition duration-200 hover:from-purple-700 hover:to-indigo-700'
+            class='w-full rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-3 font-medium text-white shadow-lg transition duration-200 hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:from-purple-600 disabled:hover:to-indigo-600'
           >
-            Generate File
+            <div class='flex items-center justify-center gap-2'>
+              <Icon name='lucide:wand-2' class='h-5 w-5' />
+              <span>Visit Path</span>
+            </div>
           </button>
         </form>
       </div>
-    </div>
+    </main>
 
     <script>
       // Initialize on load
       document.addEventListener('DOMContentLoaded', async () => {
-        // GET request to get cookie
         try {
           const response = await fetch('/api/get-cookie', {
             method: 'GET',
@@ -165,19 +206,48 @@ if (Astro.request.method === 'POST') {
           const { apiKey } = await response.json();
           if (apiKey) {
             updateApiKeyUI(apiKey);
+          } else {
+            updateApiKeyUI(null);
           }
         } catch (error) {
           console.error('Error retrieving API key:', error);
+          updateApiKeyUI(null);
         }
       });
 
-      // API Key UI Elements
-      const apiKeyForm = document.getElementById('apiKeyForm');
-      const apiKeyStatus = document.getElementById('apiKeyStatus');
+      // UI Elements
+      const apiKeyModal = document.getElementById('apiKeyModal');
+      const showApiKeyModalBtn = document.getElementById('showApiKeyModalBtn');
+      const closeModalBtn = document.getElementById('closeModal');
       const apiKeyInput = document.getElementById('apiKey');
       const saveApiKeyBtn = document.getElementById('saveApiKey');
+      const editApiKeyBtn = document.getElementById('editApiKey');
       const removeApiKeyBtn = document.getElementById('removeApiKey');
       const notificationEl = document.getElementById('notification');
+
+      // Modal Controls
+      showApiKeyModalBtn?.addEventListener('click', () => {
+        apiKeyModal?.classList.remove('hidden');
+        apiKeyModal?.classList.add('flex');
+      });
+
+      const closeModal = () => {
+        apiKeyModal?.classList.add('hidden');
+        apiKeyModal?.classList.remove('flex');
+      };
+
+      closeModalBtn?.addEventListener('click', closeModal);
+      apiKeyModal?.addEventListener('click', (e) => {
+        if (e.target === apiKeyModal) {
+          closeModal();
+        }
+      });
+
+      // Edit API Key
+      editApiKeyBtn?.addEventListener('click', () => {
+        apiKeyModal?.classList.remove('hidden');
+        apiKeyModal?.classList.add('flex');
+      });
 
       // Save API Key
       saveApiKeyBtn?.addEventListener('click', async (e) => {
@@ -195,13 +265,13 @@ if (Astro.request.method === 'POST') {
             if (!response.ok) {
               throw new Error('API key save failed');
             }
+            closeModal();
+            updateApiKeyUI(apiKey);
+            showNotification('API key saved successfully!', 'success');
           } catch (error) {
             console.error('Error saving API key:', error);
-            return;
+            showNotification('Failed to save API key', 'error');
           }
-
-          updateApiKeyUI(apiKey);
-          showNotification('API key saved successfully!', 'success');
         }
       });
 
@@ -216,25 +286,32 @@ if (Astro.request.method === 'POST') {
           if (!response.ok) {
             throw new Error('API key removal failed');
           }
+          updateApiKeyUI(null);
+          showNotification('API key removed successfully!', 'success');
         } catch (error) {
           console.error('Error removing API key:', error);
+          showNotification('Failed to remove API key', 'error');
         }
-
-        updateApiKeyUI(null);
-        showNotification('API key removed successfully!', 'success');
       });
 
       // Helper Functions
       function updateApiKeyUI(apiKey: string | null) {
+        const showApiKeyModalBtn = document.getElementById('showApiKeyModalBtn');
+        const apiKeyStatus = document.getElementById('apiKeyStatus');
+        const generateBtn = document.getElementById('generateBtn'); // New line to select the button
+
         if (apiKey) {
           (apiKeyInput as HTMLInputElement).value = apiKey;
-          apiKeyForm?.classList.add('hidden');
+          showApiKeyModalBtn?.classList.add('hidden');
           apiKeyStatus?.classList.remove('hidden');
-          apiKeyStatus?.classList.add('flex');
+          apiKeyStatus?.classList.add('block');
+          (generateBtn as HTMLButtonElement).disabled = false;
         } else {
-          apiKeyForm?.classList.remove('hidden');
+          showApiKeyModalBtn?.classList.remove('hidden');
+          showApiKeyModalBtn?.classList.add('block');
           apiKeyStatus?.classList.add('hidden');
-          apiKeyStatus?.classList.remove('flex');
+          apiKeyStatus?.classList.remove('block');
+          (generateBtn as HTMLButtonElement).disabled = true;
           if (apiKeyInput) {
             (apiKeyInput as HTMLInputElement).value = '';
           }
@@ -244,10 +321,9 @@ if (Astro.request.method === 'POST') {
       function showNotification(message: string, type: 'success' | 'error') {
         if (!notificationEl) return;
 
+        const bgColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
         notificationEl.textContent = message;
-        notificationEl.className = `fixed top-4 left-1/2 transform -translate-x-1/2 p-4 rounded-lg text-white text-center min-w-[300px] z-50 ${
-          type === 'success' ? 'bg-green-500' : 'bg-red-500'
-        }`;
+        notificationEl.className = `fixed top-4 left-1/2 transform -translate-x-1/2 p-4 rounded-lg text-white text-center min-w-[300px] z-50 ${bgColor} shadow-lg`;
         notificationEl.classList.remove('hidden');
 
         setTimeout(() => {

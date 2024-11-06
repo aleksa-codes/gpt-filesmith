@@ -1,111 +1,97 @@
-# GPT FileSmith
+# GPT FileSmith 🛠️
 
-**GPT FileSmith** is a file generator tool inspired by _Rick and Morty's Interdimensional Cable_ concept. You can enter any path or URL (e.g., `/blackhole.py`, `/mcdonalds/special-deals.html`), and it will generate a corresponding file using GPT-4, based on the path and extension. If no file type or extension is provided, it will default to HTML. The app supports generating only HTML files for download.
+GPT FileSmith is a dynamic file generator inspired by _Rick and Morty's Interdimensional Cable_. Enter any path or URL (e.g., `/blackhole.py`, `/mcdonalds/special-deals.html`), and GPT-4 will generate a corresponding file based on the path and extension. If no extension is specified, it defaults to generating an HTML file. Currently, only HTML files are downloadable.
 
-## Demo
+## 🌐 Demo
 
-Visit [GPT FileSmith](https://filesmith.aleksa.io/) to try the app live!
+Try it live at [GPT FileSmith](https://filesmith.aleksa.io/)!
 
-## Features
+## ✨ Features
 
-- **Dynamic file creation:** Enter any path (e.g., `/about.html`, `/styles.css`), and GPT-4 generates a file corresponding to that path and extension. If an extension is omitted, it defaults to generating an HTML file.
-- **HTML file support:** Currently, only HTML files can be generated and downloaded through the app.
-- **Customizable design:** Built with Astro and Tailwind CSS for a responsive, clean design.
-- **Use directly in browser:** You can also enter the file path directly in the browser's address bar for a seamless experience (e.g., `/example.html`).
-- **Download files:** You can generate and download the created HTML files.
+- **Dynamic File Creation**: Enter any path (e.g., `/about.html`, `/styles.css`), and GPT-4 generates file content based on the path and extension.
+- **HTML File Support**: Generate and download HTML files directly.
+- **Responsive Design**: Built with Astro and Tailwind CSS for a clean, adaptable UI.
+- **Direct Browser Access**: Enter file paths directly in the address bar (e.g., `/example.html`).
+- **Downloadable Files**: Download the generated HTML files with a single click.
 
-## How It Works
+## 🛠️ Tech Stack
 
-1. Enter a path with an extension (e.g., `/example.html`, `/styles.css`). If no extension is specified, HTML will be used by default.
-2. GPT-4 generates the file content based on the file type and the given path.
-3. The page is dynamically created, allowing you to preview or download the generated HTML file.
+- **Framework**: Astro
+- **Styling**: Tailwind CSS
+- **API Integration**: OpenAI API
 
-## Installation
-
-Follow these steps to install and run the project locally.
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- **Node.js** (v14+)
-- **Yarn** or **npm**
-- An OpenAI API key
+- Node.js (v14 or higher)
+- Yarn or npm
+- OpenAI API key
 
-### Clone the repository
+### Installation
 
-```bash
-git clone https://github.com/aleksa-codes/gpt-filesmith.git
-cd gpt-filesmith
-```
+1. Clone the repository:
 
-### Install dependencies
+   ```bash
+   git clone https://github.com/aleksa-codes/gpt-filesmith.git
+   cd gpt-filesmith
+   ```
 
-You can install dependencies using either Yarn or npm.
+2. Install dependencies:
 
-#### Using Yarn
+   ```bash
+   yarn install
+   # or
+   npm install
+   ```
 
-```bash
-yarn install
-```
+3. Create a `.env` file with your OpenAI API key (optional; the key can also be added in-app):
 
-#### Using npm
+   ```bash
+   OPENAI_API_KEY=your-api-key
+   ```
 
-```bash
-npm install
-```
+4. Start the development server:
 
-### Running the Development Server
+   ```bash
+   yarn dev
+   # or
+   npm run dev
+   ```
 
-Once you have the dependencies installed and your API key set up, you can run the development server.
+5. Access the app at `http://localhost:4321`.
 
-#### Using Yarn
+## 💡 Usage
 
-```bash
-yarn dev
-```
+1. Enter a path with an extension (e.g., `/example.html`, `/styles.css`). If no extension is specified, HTML will be used by default.
+2. Alternatively, enter the file path directly in the browser's address bar (e.g., `http://localhost:4321/example.html`).
+3. GPT-4 will generate file content based on the specified path and file type.
+4. Preview the generated file or download it if it’s an HTML file.
 
-#### Using npm
+### Example Paths
 
-```bash
-npm run dev
-```
-
-The application will start, and you can access it at `http://localhost:4321`.
-
-## Usage
-
-1. Enter a path or URL in the form (e.g., `/example.html`, `/scripts/main.js`). If no extension is provided, it will default to HTML.
-2. Alternatively, you can enter the file path directly in the browser's address bar (e.g., `http://localhost:3000/example.html`).
-3. The app will generate the content for the file type, defaulting to HTML if no type is specified.
-4. Preview the generated HTML file in the browser or download it using the provided link.
-
-## Example Paths
-
-Here are some example paths you can try:
-
-- `/index.html`: Generates a homepage with a header, navigation, and content.
-- `/style.css`: Generates a basic stylesheet with Tailwind CSS classes.
-- `/api/response.json`: Generates a sample JSON response.
-- `/app.js`: Generates a simple JavaScript file.
+- `/index.html`: Generates a homepage layout with header and navigation.
+- `/style.css`: Generates a stylesheet using Tailwind CSS classes.
+- `/api/response.json`: Creates a sample JSON API response.
+- `/app.js`: Produces a JavaScript file with basic functionality.
 - `/special-deals.html`: Generates a promotional webpage.
 
-## Build for Production
+## 🛠️ Building for Production
 
-To build the app for production, use the following commands.
+To create a production build, run:
 
-#### Using Yarn
+   ```bash
+   yarn build
+   # or
+   npm run build
+   ```
 
-```bash
-yarn build
-```
+The production-ready static files will be in the `dist` folder.
 
-#### Using npm
+## 📝 License
 
-```bash
-npm run build
-```
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/aleksa-codes/gpt-filesmith/blob/main/LICENSE) file for details.
 
-The static files will be generated in the `dist` folder, ready to be deployed.
+---
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](https://github.com/aleksa-codes/gpt-filesmith/blob/main/LICENSE) file for details.
+<p align="center">Made with ❤️ by <a href="https://github.com/aleksa-codes">aleksa.codes</a></p>

@@ -653,10 +653,10 @@
   resolved "https://registry.yarnpkg.com/@fastify/busboy/-/busboy-2.0.0.tgz#f22824caff3ae506b18207bad4126dbc6ccdb6b8"
   integrity sha512-JUFJad5lv7jxj926GPgymrWQxxjPYuJNiNjNMzqT+HiuP6Vl3dk5xzG+8sTX96np0ZAluvaMzPsjhHZ5rNuNQQ==
 
-"@iconify-json/lucide@^1.2.11":
-  version "1.2.11"
-  resolved "https://registry.yarnpkg.com/@iconify-json/lucide/-/lucide-1.2.11.tgz#6f48bd4a88e598306050d063820d667483755772"
-  integrity sha512-dqpbV7+g1qqxtZOHCZKwdKhtYYqEUjFhYiOg/+PcADbjtapoL+bwa1Brn12gAHq5r2K7Mf29xRHOTmZ3UHHOrw==
+"@iconify-json/lucide@^1.2.14":
+  version "1.2.14"
+  resolved "https://registry.yarnpkg.com/@iconify-json/lucide/-/lucide-1.2.14.tgz#ef3258f73471132b11bca99fcd10cf3c0ae06576"
+  integrity sha512-NDJKk1NQRNymlr5B5uiWBRc3RAZ8r+8A1F4SU+60udy05V0GwILAnoJvlg6oY0WZBhqb/ChaU1LWm1XHmJ4DEg==
   dependencies:
     "@iconify/types" "*"
 
@@ -1358,10 +1358,10 @@ astro-integration-kit@~0.16.1:
     pathe "^1.1.2"
     recast "^0.23.7"
 
-astro@^4.16.9:
-  version "4.16.9"
-  resolved "https://registry.yarnpkg.com/astro/-/astro-4.16.9.tgz#a3ecd8029c5e303f4f23c98379e99709d4071862"
-  integrity sha512-DFYzPZooVArKSGu969BBByUV44tJMVDPGKxgqWNFBaIrkvGljdVUqQSVwD+/iPYACoSkI8BRYvDMEBDkathIUQ==
+astro@^4.16.11:
+  version "4.16.11"
+  resolved "https://registry.yarnpkg.com/astro/-/astro-4.16.11.tgz#a8cd4f0c868623b8c16a36796f730fe230f4a34e"
+  integrity sha512-Pm0ATut4f8kM2OKbSDbatO5Q/f2ynt1dbc5UGQN8I5bFnJvDbJj3R1NE513BOXXv4GQBKJZUshcZEMvlZpA61g==
   dependencies:
     "@astrojs/compiler" "^2.10.3"
     "@astrojs/internal-helpers" "0.4.1"
@@ -1405,7 +1405,7 @@ astro@^4.16.9:
     micromatch "^4.0.8"
     mrmime "^2.0.0"
     neotraverse "^0.6.18"
-    ora "^8.1.0"
+    ora "^8.1.1"
     p-limit "^6.1.0"
     p-queue "^8.0.1"
     preferred-pm "^4.0.0"
@@ -3508,10 +3508,10 @@ oniguruma-to-js@0.4.3:
   dependencies:
     regex "^4.3.2"
 
-openai@^4.71.0:
-  version "4.71.0"
-  resolved "https://registry.yarnpkg.com/openai/-/openai-4.71.0.tgz#77f344c0229f52786b833e6988634a882b06c76f"
-  integrity sha512-jeJ7+6cZvj+ZbIsbX/Ag8+pug2+vjKbrD/v3Hwp6uv3KZyWjSkZa5MdUshzpNC3jsFzakfbUhEEFQXsKWNgm/g==
+openai@^4.72.0:
+  version "4.72.0"
+  resolved "https://registry.yarnpkg.com/openai/-/openai-4.72.0.tgz#61630553157a0c9bb1c304b1dd4d2f90e9ec4cf7"
+  integrity sha512-hFqG9BWCs7L7ifrhJXw7mJXmUBr7d9N6If3J9563o0jfwVA4wFANFDDaOIWFdgDdwgCXg5emf0Q+LoLCGszQYA==
   dependencies:
     "@types/node" "^18.11.18"
     "@types/node-fetch" "^2.6.4"
@@ -3521,10 +3521,10 @@ openai@^4.71.0:
     formdata-node "^4.3.2"
     node-fetch "^2.6.7"
 
-ora@^8.1.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/ora/-/ora-8.1.0.tgz#c3db2f9f83a2bec9e8ab71fe3b9ae234d65ca3a8"
-  integrity sha512-GQEkNkH/GHOhPFXcqZs3IDahXEQcQxsSjEkK4KvEEST4t7eNzoMjxTzef+EZ+JluDEV+Raoi3WQ2CflnRdSVnQ==
+ora@^8.1.1:
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/ora/-/ora-8.1.1.tgz#8efc8865e44c87e4b55468a47e80a03e678b0e54"
+  integrity sha512-YWielGi1XzG1UTvOaCFaNgEnuhZVMSHYkW/FQ7UX8O26PtlpdM84c0f7wLPlkvx2RfiQmnzd61d/MGxmpQeJPw==
   dependencies:
     chalk "^5.3.0"
     cli-cursor "^5.0.0"

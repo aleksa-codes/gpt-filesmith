@@ -83,6 +83,7 @@ if (Astro.request.method === 'POST') {
               placeholder='sk-...'
               required
             />
+            <div id='apiKeyError' class='mt-1 hidden text-sm text-red-600'></div>
           </div>
 
           <div class='rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm text-blue-800'>
@@ -253,6 +254,24 @@ if (Astro.request.method === 'POST') {
       saveApiKeyBtn?.addEventListener('click', async (e) => {
         e.preventDefault();
         const apiKey = (apiKeyInput as HTMLInputElement)?.value;
+        const apiKeyError = document.getElementById('apiKeyError');
+
+        // Validate API key format
+        const isValidApiKey = /^sk-[a-zA-Z0-9-_]{1,250}$/.test(apiKey);
+
+        if (!isValidApiKey) {
+          if (apiKeyError) {
+            apiKeyError.textContent =
+              'Invalid API key format. Must start with "sk-" followed by letters, numbers, hyphens, or underscores.';
+            apiKeyError.classList.remove('hidden');
+          }
+          return;
+        }
+
+        if (apiKeyError) {
+          apiKeyError.classList.add('hidden');
+        }
+
         if (apiKey) {
           try {
             const response = await fetch('/api/set-cookie', {

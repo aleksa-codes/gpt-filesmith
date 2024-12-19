@@ -20,15 +20,15 @@
   resolved "https://registry.yarnpkg.com/@antfu/utils/-/utils-0.7.10.tgz#ae829f170158e297a9b6a28f161a8e487d00814d"
   integrity sha512-+562v9k4aI80m1+VuMHehNJWLOFjBnXn3tdOitzD0il5b7smkSBal4+a3oKiQTbrwMmN/TBUMDvbdoWDehgOww==
 
-"@astrojs/cloudflare@^12.0.1":
-  version "12.0.1"
-  resolved "https://registry.yarnpkg.com/@astrojs/cloudflare/-/cloudflare-12.0.1.tgz#350008e3e68b21bdba283928f5d2822cd8950a33"
-  integrity sha512-TFeE7nMkzjP/zxH2Ra1eomXhoOD4sv6GFgZyIfAMsCURzBTszxmMh6MC/ChesudFKN0Cbn4fTOoLCgQwxYXVYw==
+"@astrojs/cloudflare@^12.1.0":
+  version "12.1.0"
+  resolved "https://registry.yarnpkg.com/@astrojs/cloudflare/-/cloudflare-12.1.0.tgz#9e614e6da38ea5f09ce67c482c9c4a4cb6a69f2f"
+  integrity sha512-tx2HrZclERHI9MV/Jx/+cUVbQ0UGWlVCxV7ozRgnwCNG3fgBtpk1Qf60eTMnCLDQTKXy6C5b3nE+c9+dMpW6Hg==
   dependencies:
     "@astrojs/internal-helpers" "0.4.1"
     "@astrojs/underscore-redirects" "^0.4.0-alpha.0"
     "@cloudflare/workers-types" "^4.20241112.0"
-    "@inox-tools/astro-when" "^0.2.4"
+    "@inox-tools/astro-when" "^1.0.1"
     esbuild "^0.24.0"
     estree-walker "^3.0.3"
     magic-string "^0.30.14"
@@ -52,10 +52,10 @@
   resolved "https://registry.yarnpkg.com/@astrojs/internal-helpers/-/internal-helpers-0.4.2.tgz#b8de83d84543694a7d8a7018bfd03f4cba9c4a91"
   integrity sha512-EdDWkC3JJVcpGpqJAU/5hSk2LKXyG3mNGkzGoAuyK+xoPHbaVdSuIWoN1QTnmK3N/gGfaaAfM8gO2KDCAW7S3w==
 
-"@astrojs/markdown-remark@6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@astrojs/markdown-remark/-/markdown-remark-6.0.0.tgz#bf0a4e97bd71685e27f9f36cc103239d99fbe83e"
-  integrity sha512-Tabo7xM44Pz2Yf9qpdaCCgxRmtaypi2YCinqTUNefDrWUa+OyKW62OuNeCaGwNh/ys+QAd9FUWN5/3HgPWjP4Q==
+"@astrojs/markdown-remark@6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@astrojs/markdown-remark/-/markdown-remark-6.0.1.tgz#6bffdebbf7a802b85a0c3795c5f02de49d8a5334"
+  integrity sha512-CTSYijj25NfxgZi15TU3CwPwgyD1/7yA3FcdcNmB9p94nydupiUbrIiq3IqeTp2m5kCVzxbPZeC7fTwEOaNyGw==
   dependencies:
     "@astrojs/prism" "3.2.0"
     github-slugger "^2.0.0"
@@ -566,10 +566,10 @@
   resolved "https://registry.yarnpkg.com/@fastify/busboy/-/busboy-2.0.0.tgz#f22824caff3ae506b18207bad4126dbc6ccdb6b8"
   integrity sha512-JUFJad5lv7jxj926GPgymrWQxxjPYuJNiNjNMzqT+HiuP6Vl3dk5xzG+8sTX96np0ZAluvaMzPsjhHZ5rNuNQQ==
 
-"@iconify-json/lucide@^1.2.18":
-  version "1.2.18"
-  resolved "https://registry.yarnpkg.com/@iconify-json/lucide/-/lucide-1.2.18.tgz#7e102d525ba748ae0e2c34a7004c99d4817d9d26"
-  integrity sha512-SFBoHBSULntem84iWxGM9NzlP6QY/dwjxC5t4c1lC7+xq31Fous8JkppoJih0/ICJ3CsbppRZeb11y3iLcwwug==
+"@iconify-json/lucide@^1.2.19":
+  version "1.2.19"
+  resolved "https://registry.yarnpkg.com/@iconify-json/lucide/-/lucide-1.2.19.tgz#cc3aee2af406e6034ce863d076cad19e32f51179"
+  integrity sha512-bdkDEW2uDyw7zNDMsBL1uCA83jwhVtZwVL4zKLPHga2OSz/fixNbMGq8XOviIcTIBC3poUShCTcemoMdXK2kug==
   dependencies:
     "@iconify/types" "*"
 
@@ -721,12 +721,12 @@
   resolved "https://registry.yarnpkg.com/@img/sharp-win32-x64/-/sharp-win32-x64-0.33.4.tgz#106f911134035b4157ec92a0c154a6b6f88fa4c1"
   integrity sha512-3QLocdTRVIrFNye5YocZl+KKpYKP+fksi1QhmOArgx7GyhIbQp/WrJRu176jm8IxromS7RIkzMiMINVdBtC8Aw==
 
-"@inox-tools/astro-when@^0.2.4":
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/@inox-tools/astro-when/-/astro-when-0.2.4.tgz#d94ad6c4e706e0b1c3ff5ce9bb60bba6922c072c"
-  integrity sha512-A1urUbru+Ni7UnsWui0Cq3rGXE75XsiVmU3vmJXhA9duQ4JyIYxLZALDSsqsT0pAzBrUWokZ09fALJ5eJUPtZQ==
+"@inox-tools/astro-when@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@inox-tools/astro-when/-/astro-when-1.0.1.tgz#243fc68f9ad9f8334bc465bdce79d1996b7432e4"
+  integrity sha512-x/62MFEfzSMYaQGIoxg5k10YL5X9LYWEmFPtew/Z3AOKhWrLx+LHnqimRkbfV4JVMDj+F0ZP5a+xRRjHbZ6Maw==
   dependencies:
-    astro-integration-kit "~0.16.1"
+    astro-integration-kit "~0.17.0"
     debug "^4.3.7"
 
 "@isaacs/cliui@^8.0.2":
@@ -1203,22 +1203,22 @@ astro-icon@^1.1.4:
     "@iconify/types" "^2.0.0"
     "@iconify/utils" "^2.1.30"
 
-astro-integration-kit@~0.16.1:
-  version "0.16.1"
-  resolved "https://registry.yarnpkg.com/astro-integration-kit/-/astro-integration-kit-0.16.1.tgz#3dab764308dfb3a76c6501519714fbc420ac34e9"
-  integrity sha512-N/iam0PAFrRT9azYZqscP1HowQhC77Dwlp912P0/72k+kwUVgO3m73F26XXukHYoZBsrHgrUrfsWBxuCH3kEUg==
+astro-integration-kit@~0.17.0:
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/astro-integration-kit/-/astro-integration-kit-0.17.0.tgz#c1a0103281feea9bd4c6f5c68319c05311fda0dd"
+  integrity sha512-fe31CCKmrGYn/kkBd1J4b7P02gEdMdEIFBz14zdAud+YAmJeLtZD6wmrCz3LDau+lE1oM1hQnvmZXVSM/YveKw==
   dependencies:
     pathe "^1.1.2"
     recast "^0.23.7"
 
-astro@^5.0.3:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/astro/-/astro-5.0.3.tgz#0059a7706043523bb85c75440096a7b77ed714f2"
-  integrity sha512-qpeN+POmmfAQu/XDXaI2CxkUgQFwH9uMUVaA1reV9rybzIbOVYc3E3BU5SkiP/W4BMUFPdJtyw6+/n/0AUv6rw==
+astro@^5.0.9:
+  version "5.0.9"
+  resolved "https://registry.yarnpkg.com/astro/-/astro-5.0.9.tgz#56e4101edc9744ac22bced289c22341cccaeffd3"
+  integrity sha512-6jRMPSB+V82y/l8XOylPYJz78ux268nNNV2SLRvUaT4faf18rvIFAR33Y25wTM0Oeukcv1951xFuFsmAkQc+jg==
   dependencies:
     "@astrojs/compiler" "^2.10.3"
     "@astrojs/internal-helpers" "0.4.2"
-    "@astrojs/markdown-remark" "6.0.0"
+    "@astrojs/markdown-remark" "6.0.1"
     "@astrojs/telemetry" "3.2.0"
     "@oslojs/encoding" "^1.1.0"
     "@rollup/pluginutils" "^5.1.3"
@@ -3258,10 +3258,10 @@ oniguruma-to-es@0.7.0:
     regex "^5.0.2"
     regex-recursion "^4.3.0"
 
-openai@^4.76.0:
-  version "4.76.0"
-  resolved "https://registry.yarnpkg.com/openai/-/openai-4.76.0.tgz#0ba135ff6452eadbce980c604f98799dfa239325"
-  integrity sha512-QBGIetjX1C9xDp5XGa/3mPnfKI9BgAe2xHQX6PmO98wuW9qQaurBaumcYptQWc9LHZZq7cH/Y1Rjnsr6uUDdVw==
+openai@^4.77.0:
+  version "4.77.0"
+  resolved "https://registry.yarnpkg.com/openai/-/openai-4.77.0.tgz#228f2d43ffa79ae9d8b5d4155e965da82e5ac330"
+  integrity sha512-WWacavtns/7pCUkOWvQIjyOfcdr9X+9n9Vvb0zFeKVDAqwCMDHB+iSr24SVaBAhplvSG6JrRXFpcNM9gWhOGIw==
   dependencies:
     "@types/node" "^18.11.18"
     "@types/node-fetch" "^2.6.4"
@@ -4150,10 +4150,10 @@ svgo@^3.3.2:
     csso "^5.0.5"
     picocolors "^1.0.0"
 
-tailwindcss@^3.4.16:
-  version "3.4.16"
-  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.4.16.tgz#35a7c3030844d6000fc271878db4096b6a8d2ec9"
-  integrity sha512-TI4Cyx7gDiZ6r44ewaJmt0o6BrMCT5aK5e0rmJ/G9Xq3w7CX/5VXl/zIPEJZFUK5VEqwByyhqNPycPlvcK4ZNw==
+tailwindcss@^3.4.17:
+  version "3.4.17"
+  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.4.17.tgz#ae8406c0f96696a631c790768ff319d46d5e5a63"
+  integrity sha512-w33E2aCvSDP0tW9RZuNXadXlkHXqFzSkQew/aIa2i/Sj8fThxwovwlXHSPXTbAHwEIhBFXAedUhP2tueAKP8Og==
   dependencies:
     "@alloc/quick-lru" "^5.2.0"
     arg "^5.0.2"

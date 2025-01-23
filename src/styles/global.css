@@ -1,3 +1,11 @@
+@import 'tailwindcss';
+@variant dark (&:where(.dark, .dark *));
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+  max-width: 1400px;
+}
+
 .github-corner:hover .octo-arm {
   animation: octocat-wave 560ms ease-in-out;
 }

@@ -29,7 +29,7 @@ const generateCompletion = async (prompt: string, apiKey: string | null) => {
   const openai = new OpenAI({ apiKey });
 
   return openai.chat.completions.create({
-    model: 'gpt-4o-mini',
+    model: 'gpt-4.1-nano',
     messages: [
       {
         role: 'system',

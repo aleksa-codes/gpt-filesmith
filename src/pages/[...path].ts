@@ -29,7 +29,7 @@ const generateCompletion = async (prompt: string, apiKey: string | null) => {
   const openai = new OpenAI({ apiKey });
 
   return openai.chat.completions.create({
-    model: 'gpt-4.1-nano',
+    model: 'gpt-5-nano',
     messages: [
       {
         role: 'system',
@@ -38,8 +38,6 @@ const generateCompletion = async (prompt: string, apiKey: string | null) => {
       },
       { role: 'user', content: prompt },
     ],
-    temperature: 1.1,
-    stop: ['</html>'],
   });
 };
 

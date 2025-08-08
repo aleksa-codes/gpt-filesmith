@@ -25,7 +25,7 @@ Try it live at [GPT FileSmith](https://filesmith.aleksa.io/)!
 ### Prerequisites
 
 - Node.js (v14 or higher)
-- Yarn or npm
+- npm or bun
 - OpenAI API key
 
 ### Installation
@@ -40,7 +40,7 @@ Try it live at [GPT FileSmith](https://filesmith.aleksa.io/)!
 2. Install dependencies:
 
    ```bash
-   yarn install
+   bun install
    # or
    npm install
    ```
@@ -54,7 +54,7 @@ Try it live at [GPT FileSmith](https://filesmith.aleksa.io/)!
 4. Start the development server:
 
    ```bash
-   yarn dev
+   bun dev
    # or
    npm run dev
    ```
@@ -80,11 +80,11 @@ Try it live at [GPT FileSmith](https://filesmith.aleksa.io/)!
 
 To create a production build, run:
 
-   ```bash
-   yarn build
-   # or
-   npm run build
-   ```
+```bash
+bun run build
+# or
+npm run build
+```
 
 The production-ready static files will be in the `dist` folder.
 
